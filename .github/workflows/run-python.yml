@@ -40,7 +40,7 @@ jobs:
             echo -e "add\nTask 1\nadd\nTask 2\nedit\n${{ github.event.inputs.todo_number }}\n${{ github.event.inputs.todo_text }}\nshow\nexit" | python hello.py
 
           elif [ "${{ github.event.inputs.action }}" = "show" ]; then
-            echo -e "add\nTask 1\nadd\nTask 2\nshow\nexit" | python your_script.py
+            echo -e "add\nTask 1\nadd\nTask 2\nshow\nexit" | python hello.py
 
           else
             echo -e "exit" | python hello.py
