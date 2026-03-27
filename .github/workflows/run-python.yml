@@ -1,23 +1,30 @@
-name: Run Python Todo Script
+name: Edit Todo via Manual Trigger
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      todo_number:
+        description: "Enter the todo number to edit"
+        required: true
+        default: "1"
+      new_todo:
+        description: "Enter the new todo text"
+        required: true
+        default: "Updated task"
 
 jobs:
-  run-python:
+  edit-todo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Run Python script
+      - name: Run edit case
         run: |
-          echo -e "add\nBuy milk\nadd\nLearn Python\nshow\nexit" | python hello.py
+          echo -e "add\nTask 1\nadd\nTask 2\nedit\n${{ github.event.inputs.todo_number }}\n${{ github.event.inputs.new_todo }}\nshow\nexit" | python your_script.py
