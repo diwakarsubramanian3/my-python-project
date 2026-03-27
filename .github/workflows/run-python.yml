@@ -34,7 +34,7 @@ jobs:
           echo "Running action: ${{ github.event.inputs.action }}"
 
           if [ "${{ github.event.inputs.action }}" = "add" ]; then
-            echo -e "add\n${{ github.event.inputs.todo_text }}\nshow\nexit" | python your_script.py
+            echo -e "add\n${{ github.event.inputs.todo_text }}\nshow\nexit" | python hello.py
 
           elif [ "${{ github.event.inputs.action }}" = "edit" ]; then
             echo -e "add\nTask 1\nadd\nTask 2\nedit\n${{ github.event.inputs.todo_number }}\n${{ github.event.inputs.todo_text }}\nshow\nexit" | python hello.py
