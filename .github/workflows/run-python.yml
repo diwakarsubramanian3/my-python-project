@@ -1,23 +1,27 @@
-name: Edit Todo via Manual Trigger
+name: Todo App (Manual Run)
 
 on:
   workflow_dispatch:
     inputs:
+      action:
+        description: "Choose action: add / show / edit / exit"
+        required: true
+        default: "show"
+      todo_text:
+        description: "Todo text (used for add/edit)"
+        required: false
+        default: "Sample task"
       todo_number:
-        description: "Enter the todo number to edit"
-        required: true
+        description: "Todo number (used for edit)"
+        required: false
         default: "1"
-      new_todo:
-        description: "Enter the new todo text"
-        required: true
-        default: "Updated task"
 
 jobs:
-  edit-todo:
+  run-todo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -25,6 +29,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Run edit case
+      - name: Run Todo Script
         run: |
-          echo -e "add\nTask 1\nadd\nTask 2\nedit\n${{ github.event.inputs.todo_number }}\n${{ github.event.inputs.new_todo }}\nshow\nexit" | python your_script.py
+          echo "Running action: ${{ github.event.inputs.action }}"
+
+          if [ "${{ github.event.inputs.action }}" = "add" ]; then
+            echo -e "add\n${{ github.event.inputs.todo_text }}\nshow\nexit" | python your_script.py
+
+          elif [ "${{ github.event.inputs.action }}" = "edit" ]; then
+            echo -e "add\nTask 1\nadd\nTask 2\nedit\n${{ github.event.inputs.todo_number }}\n${{ github.event.inputs.todo_text }}\nshow\nexit" | python hello.py
+
+          elif [ "${{ github.event.inputs.action }}" = "show" ]; then
+            echo -e "add\nTask 1\nadd\nTask 2\nshow\nexit" | python your_script.py
+
+          else
+            echo -e "exit" | python hello.py
+          fi
