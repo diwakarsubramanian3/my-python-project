@@ -1,6 +1,4 @@
 
-# ⚙️ 3. GitHub Action File  
-(Location: `.github/workflows/run-python.yml`)
 
 name: Run Python Script
 
