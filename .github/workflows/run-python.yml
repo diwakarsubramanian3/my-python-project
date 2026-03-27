@@ -1,0 +1,23 @@
+
+# ⚙️ 3. GitHub Action File  
+(Location: `.github/workflows/run-python.yml`)
+
+name: Run Python Script
+
+on: [push]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Run script
+      run: python hello.py
