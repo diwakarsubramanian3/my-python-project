@@ -1,21 +1,23 @@
+name: Run Python Todo Script
 
-
-name: Run Python Script
-
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
-  run-script:
+  run-python:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    - name: Run script
-      run: python hello.py
+      - name: Run Python script
+        run: |
+          echo -e "add\nBuy milk\nadd\nLearn Python\nshow\nexit" | python hello.py
